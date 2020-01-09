@@ -3,7 +3,7 @@
 Summary:	A graph based image processing framework
 Name:		gegl
 Version:	0.1.2
-Release:	4%{?dist}
+Release:	5%{?dist}
 # The binary is under the GPL, while the libs are under LGPL
 License:	LGPLv3+ and GPLv3+
 Group:		System Environment/Libraries
@@ -98,6 +98,10 @@ make DESTDIR=%{buildroot} install INSTALL='install -p'
 rm -f %{buildroot}%{_libdir}/*.la
 rm -f %{buildroot}%{_libdir}/gegl-%{gegl_lib_version}/*.la
 
+# don't ship executable documentation files (#620378)
+find "%{buildroot}%{_datadir}/gtk-doc/html/gegl/" \! -type d \
+    -exec chmod a-x {} \;
+
 %check
 if make check; then
 	:
@@ -150,6 +154,9 @@ rm -rf %{buildroot}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Jun 19 2013 Nils Philippsen <nils@redhat.com> - 0.1.2-5
+- don't ship executable documentation files (#620378)
+
 * Mon Oct 29 2012 Nils Philippsen <nils@redhat.com> - 0.1.2-4
 - avoid buffer overflow in ppm loader (CVE-2012-4433)
 
