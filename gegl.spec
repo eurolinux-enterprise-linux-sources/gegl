@@ -3,7 +3,7 @@
 Summary:	A graph based image processing framework
 Name:		gegl
 Version:	0.1.2
-Release:	3%{?dist}
+Release:	4%{?dist}
 # The binary is under the GPL, while the libs are under LGPL
 License:	LGPLv3+ and GPLv3+
 Group:		System Environment/Libraries
@@ -14,6 +14,8 @@ Source0:	ftp://ftp.gtk.org/pub/gegl/0.1/%{name}-%{version}.tar.bz2
 Patch0:		gegl-0.1.2-processor-leak.patch
 # avoid buffer overflow in gegl_buffer_header_init()
 Patch1:		gegl-0.1.2-buffer-save-overflow.patch
+# avoid buffer overflow in ppm loader
+Patch2:     gegl-0.1.2-CVE-2012-4433.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:	asciidoc
 BuildRequires:	babl-devel >= 0.1.0
@@ -63,6 +65,7 @@ chmod -x docs/devhelp.css operations/external/ff-load.c operations/workshop/exte
 
 %patch0 -p1 -b .processor-leak
 %patch1 -p1 -b .buffer-save-overflow
+%patch2 -p1 -b .CVE-2012-4433
 
 %build
 # use PIC/PIE because gegl is likely to deal with data coming from untrusted
@@ -147,6 +150,9 @@ rm -rf %{buildroot}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Oct 29 2012 Nils Philippsen <nils@redhat.com> - 0.1.2-4
+- avoid buffer overflow in ppm loader (CVE-2012-4433)
+
 * Wed Jun 23 2010 Nils Philippsen <nils@redhat.com> - 0.1.2-3
 - build with -fno-strict-aliasing
 - use PIC/PIE because gegl is likely to deal with data coming from untrusted
