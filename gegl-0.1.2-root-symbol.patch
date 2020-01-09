@@ -1,0 +1,12 @@
+diff -urNp origin/gegl/gegl-instrument.c new/gegl/gegl-instrument.c
+--- origin/gegl/gegl-instrument.c	2010-02-07 15:43:55.000000000 +0100
++++ new/gegl/gegl-instrument.c	2016-09-23 09:42:37.057339444 +0200
+@@ -38,7 +38,7 @@ struct _Timing
+   Timing *next;
+ };
+ 
+-Timing *root = NULL;
++static Timing *root = NULL;
+ 
+ static Timing *iter_next (Timing *iter)
+ {

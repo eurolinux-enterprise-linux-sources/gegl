@@ -3,7 +3,7 @@
 Summary:	A graph based image processing framework
 Name:		gegl
 Version:	0.1.2
-Release:	5%{?dist}
+Release:	6%{?dist}
 # The binary is under the GPL, while the libs are under LGPL
 License:	LGPLv3+ and GPLv3+
 Group:		System Environment/Libraries
@@ -15,7 +15,9 @@ Patch0:		gegl-0.1.2-processor-leak.patch
 # avoid buffer overflow in gegl_buffer_header_init()
 Patch1:		gegl-0.1.2-buffer-save-overflow.patch
 # avoid buffer overflow in ppm loader
-Patch2:     gegl-0.1.2-CVE-2012-4433.patch
+Patch2:    	gegl-0.1.2-CVE-2012-4433.patch
+# fix libgegl.so leaking "root" symbol
+Patch3:    	gegl-0.1.2-root-symbol.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:	asciidoc
 BuildRequires:	babl-devel >= 0.1.0
@@ -38,6 +40,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	ruby
 BuildRequires:	SDL-devel
 BuildRequires:	w3m
+Requires: dcraw
 
 %description
 GEGL (Generic Graphics Library) is a graph based image processing framework. 
@@ -53,6 +56,7 @@ Requires:	gtk-doc
 Requires:	pkgconfig
 Requires:	babl-devel
 Requires:	glib2-devel
+Requires:	dcraw
 
 %description devel
 This package contains the libraries and header files needed for
@@ -66,6 +70,7 @@ chmod -x docs/devhelp.css operations/external/ff-load.c operations/workshop/exte
 %patch0 -p1 -b .processor-leak
 %patch1 -p1 -b .buffer-save-overflow
 %patch2 -p1 -b .CVE-2012-4433
+%patch3 -p1 -b .root-symbol
 
 %build
 # use PIC/PIE because gegl is likely to deal with data coming from untrusted
@@ -154,6 +159,10 @@ rm -rf %{buildroot}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Sep 23 2016 Josef Ridky <jridky@redhat.com> - 0.1.2-6
+- added Requires: dcraw (#1279145)
+- fix libgegl leaking "root" symbol (#644390)
+
 * Wed Jun 19 2013 Nils Philippsen <nils@redhat.com> - 0.1.2-5
 - don't ship executable documentation files (#620378)
 
@@ -194,7 +203,7 @@ rm -rf %{buildroot}
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
-* Fri Jul 02 2009 Nils Philippsen - 0.1.0-1
+* Fri Jul 03 2009 Nils Philippsen - 0.1.0-1
 - fix cflags for building
 
 * Thu Jul 02 2009 Nils Philippsen
