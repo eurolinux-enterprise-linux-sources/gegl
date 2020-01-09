@@ -1,0 +1,2053 @@
+commit 61bd4c2b4b36fd081d9c266217eb44336a0384d3
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sun Feb 7 15:31:29 2010 +0000
+
+    Release 0.1.2
+
+ configure.ac |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 28b4ad0459dda7ef5f9aefde51ed715a55b0f910
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sun Feb 7 15:31:08 2010 +0000
+
+    update NEWS and AUTHORS
+
+ AUTHORS    |    5 +++--
+ NEWS       |   12 +++++++++---
+ bin/gegl.c |    2 +-
+ 3 files changed, 13 insertions(+), 6 deletions(-)
+
+commit 9a7190feb20b75cb5503b235bd3066ee533441cf
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sun Feb 7 15:26:08 2010 +0000
+
+    Add tests and reference images for resamplers
+
+    These images are generated from the latest available implementation of
+    the samplers, the result differs from the reference images originally
+    provided with that code, but provides consistent results on systems
+    where it has been checked.
+
+ tests/compositions/downsharptest.xml            |   35
+ +++++++++++++++++++++++
+ tests/compositions/downsizetest.xml             |   35
+ +++++++++++++++++++++++
+ tests/compositions/downsmoothtest.xml           |   35
+ +++++++++++++++++++++++
+ tests/compositions/reference/downsharptest.png  |  Bin 0 -> 27749 bytes
+ tests/compositions/reference/downsizetest.png   |  Bin 0 -> 27653 bytes
+ tests/compositions/reference/downsmoothtest.png |  Bin 0 -> 27307 bytes
+ tests/compositions/reference/upsharptest.png    |  Bin 0 -> 27725 bytes
+ tests/compositions/reference/upsizetest.png     |  Bin 0 -> 27776 bytes
+ tests/compositions/reference/upsmoothtest.png   |  Bin 0 -> 27786 bytes
+ tests/compositions/upsharptest.xml              |   35
+ +++++++++++++++++++++++
+ tests/compositions/upsizetest.xml               |   35
+ +++++++++++++++++++++++
+ tests/compositions/upsmoothtest.xml             |   35
+ +++++++++++++++++++++++
+ 12 files changed, 210 insertions(+), 0 deletions(-)
+
+commit 130c793c70195cf900017f74505b863a3c29a6d5
+Author: Adam Turcotte <adam.turcotte@gmail.com>
+Date:   Fri Jan 15 17:33:13 2010 -0500
+
+    Add new samplers from gsoc
+
+ gegl/buffer/Makefile.am                   |   22 +-
+ gegl/buffer/gegl-buffer-access.c          |    5 +-
+ gegl/buffer/gegl-buffer.c                 |    5 +-
+ gegl/buffer/gegl-buffer.h                 |    5 +-
+ gegl/buffer/gegl-sampler-downsharpfast.c  |   26 +
+ gegl/buffer/gegl-sampler-downsharpfast.h  |   48 ++
+ gegl/buffer/gegl-sampler-downsizefast.c   |  631 +++++++++++++++
+ gegl/buffer/gegl-sampler-downsizefast.h   |   48 ++
+ gegl/buffer/gegl-sampler-downsmoothfast.c |   26 +
+ gegl/buffer/gegl-sampler-downsmoothfast.h |   48 ++
+ gegl/buffer/gegl-sampler-sharp.c          |  806 ------------------
+ gegl/buffer/gegl-sampler-sharp.h          |   50 --
+ gegl/buffer/gegl-sampler-upsharp.c        | 1166
+ ++++++++++++++++++++++++++
+ gegl/buffer/gegl-sampler-upsharp.h        |   48 ++
+ gegl/buffer/gegl-sampler-upsize.c         |  679 ++++++++++++++++
+ gegl/buffer/gegl-sampler-upsize.h         |   50 ++
+ gegl/buffer/gegl-sampler-upsmooth.c       | 1259
+ +++++++++++++++++++++++++++++
+ gegl/buffer/gegl-sampler-upsmooth.h       |   48 ++
+ gegl/buffer/gegl-sampler-yafr.c           |  687 ----------------
+ gegl/buffer/gegl-sampler-yafr.h           |   50 --
+ gegl/buffer/gegl-sampler.c                |   33 +-
+ operations/affine/affine.c                |    2 +-
+ 22 files changed, 4117 insertions(+), 1625 deletions(-)
+
+commit a643a0f3813926da2cf63bac6c8a556eda73aa47
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sun Feb 7 14:01:01 2010 +0000
+
+    Added performance tracking framework
+
+ perf/Makefile                        |   51 +++++++++
+ perf/README                          |    9 ++
+ perf/create-report.rb                |  186
+ ++++++++++++++++++++++++++++++++++
+ perf/tests/Makefile                  |   14 +++
+ perf/tests/bblur.c                   |   26 +++++
+ perf/tests/bcontrast-minichunk.c     |   34 ++++++
+ perf/tests/bcontrast.c               |   31 ++++++
+ perf/tests/blur.c                    |   28 +++++
+ perf/tests/cc.cc                     |   59 +++++++++++
+ perf/tests/comp.c                    |   33 ++++++
+ perf/tests/gegl-c.h                  |  157 ++++++++++++++++++++++++++++
+ perf/tests/passthrough.c             |   32 ++++++
+ perf/tests/rotate.c                  |   26 +++++
+ perf/tests/test-common.h             |   37 +++++++
+ perf/tests/test-gegl-buffer-access.c |   38 +++++++
+ 15 files changed, 761 insertions(+), 0 deletions(-)
+
+commit a1e2cde7eaa82b1222138856b6885ebeddab1958
+Author: Alexia Death <alexiadeath@gmail.com>
+Date:   Tue Feb 2 22:05:21 2010 +0200
+
+    Further fixes and a new option, zoom, for mirrors op.
+
+ operations/workshop/mirrors.c |   74
+ +++++++++++++++++++++++++---------------
+ 1 files changed, 46 insertions(+), 28 deletions(-)
+
+commit 592833b9aa0abdeaf14dd76ced9e309392951466
+Author: Alexia Death <alexiadeath@gmail.com>
+Date:   Sun Jan 31 15:43:07 2010 +0200
+
+    Changes to mirrors that fix some bugs in warping and adds more
+    controll over output size
+
+ operations/workshop/mirrors.c |   20 ++++++++++++++++----
+ 1 files changed, 16 insertions(+), 4 deletions(-)
+
+commit 09796feb0db03503addb2ba09de4c87a699c22e3
+Author: Alexia Death <alexiadeath@gmail.com>
+Date:   Sun Jan 31 14:07:42 2010 +0200
+
+    Making the mirrors op trim handles act saner
+
+ operations/workshop/mirrors.c |   49
+ +++++++++++++++++++++--------------------
+ 1 files changed, 25 insertions(+), 24 deletions(-)
+
+commit 23a8bb604ff51cbd29ce693a35ce159f4acf2fff
+Author: Alexia Death <alexiadeath@gmail.com>
+Date:   Sun Jan 31 02:45:28 2010 +0200
+
+    Fixes to the mirrors op
+
+    Now its even more fancyer than original kaleidoskope was. Also, added
+    information into the copyright section about the origins of
+    kaledidoskope.
+
+ operations/workshop/mirrors.c |  103
+ ++++++++++++++++++++++++++++-------------
+ 1 files changed, 71 insertions(+), 32 deletions(-)
+
+commit ec67d293c323020616aabfaecfb932b63b61e584
+Author: Alexia Death <alexiadeath@gmail.com>
+Date:   Sat Jan 30 17:11:27 2010 +0200
+
+    Add mirrors op to workshop that implements GIMP kaleidoskope pluging
+    for gegl
+
+    Plugin has some border issues to bi fixed. Also interpolation
+    using gegl buffer samping is awfully slow.
+
+ operations/workshop/mirrors.c |  339
+ +++++++++++++++++++++++++++++++++++++++++
+ 1 files changed, 339 insertions(+), 0 deletions(-)
+
+commit f340fb84ab929b1dc752860619601109780d9ad7
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sat Jan 30 14:37:50 2010 +0000
+
+    gegl_buffer_sample: fix issue in previous commits bugfixing
+
+ gegl/buffer/gegl-buffer-access.c  |    1 +
+ gegl/buffer/gegl-buffer-private.h |    2 +-
+ 2 files changed, 2 insertions(+), 1 deletions(-)
+
+commit 166c6d3800dcab9eb27f4472c3942d2adf5d5a6e
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sat Jan 30 14:10:53 2010 +0000
+
+    gegl_buffer_sample: recreate the sampler if format changes
+
+    If samplings were done on the same buffer using different formats,
+    the first format would always be expected, potentially overrunning
+    memory.
+
+ gegl/buffer/gegl-buffer-access.c  |    7 +++++--
+ gegl/buffer/gegl-buffer-private.h |    1 +
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
+commit bd41776cb51ba9531a8676e9d95b7a2d8723210f
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sat Jan 30 13:57:46 2010 +0000
+
+    GeglSampler: cache a bablfish in the sampler
+
+    The fish will be valid after a call to gegl_sampler_prepare, before
+    calling prepare the expected output format should be set on the
+    sampler.
+
+ gegl/buffer/gegl-sampler-cubic.c   |    4 +---
+ gegl/buffer/gegl-sampler-lanczos.c |    3 +--
+ gegl/buffer/gegl-sampler-linear.c  |   21 +++++++++------------
+ gegl/buffer/gegl-sampler.c         |   15 +++++++++------
+ gegl/buffer/gegl-sampler.h         |    1 +
+ 5 files changed, 21 insertions(+), 23 deletions(-)
+
+commit 0657af91d91467d70fed6345ae8bd9bf24fe5cb9
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Tue Jan 26 00:09:51 2010 +0000
+
+    ff-load: Clean up deprecation warning from ffmpeg
+
+    Use avcodec_decode_video2 which takes a packet directly instead of
+    using avcodec_decode_video with the internal of the packet.
+
+ operations/external/ff-load.c |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+commit d5075a26108154be07c32a8ad6f403dfe138c88c
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Mon Jan 25 21:27:36 2010 +0000
+
+    buffer: remove gegl_buffer_lock/unlock from gegl_buffer_sample
+
+    For multithreaded access the tile level locks should be sufficient,
+    and any other needed locking should be dealt with in the samplers.
+
+ gegl/buffer/gegl-buffer-access.c |    4 ----
+ 1 files changed, 0 insertions(+), 4 deletions(-)
+
+commit 9278fcc527c2cb38a0c67b8a3ef58617836ded44
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Sat Jan 23 16:05:35 2010 +0100
+
+    tests: Add regression test for simple scaling
+
+    Add regression test for simple scaling. This is the kind of XML file
+    you would expect to get if all you want to do is scale an image with
+    GEGL.
+
+    make distcheck has been confirmed to still pass.
+
+ tests/compositions/reference/simple-scale.png |  Bin 0 -> 579 bytes
+ tests/compositions/simple-scale.xml           |   15 +++++++++++++++
+ 2 files changed, 15 insertions(+), 0 deletions(-)
+
+commit 2c1d278a9ef044bb580d54b00cb67b684e8e617b
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Sat Jan 23 15:45:55 2010 +0100
+
+    gegl: Format gegl_buffer_interpolation_from_string() slightly
+
+    Format gegl_buffer_interpolation_from_string() slightly by aligning
+    sampler names vertically.
+
+ gegl/buffer/gegl-sampler.c |    9 ++++++---
+ 1 files changed, 6 insertions(+), 3 deletions(-)
+
+commit cee99a362b928291ecb60e237ad6279703baffd3
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Sat Jan 23 15:25:19 2010 +0100
+
+    gegl: Add have_rect debug output
+
+ gegl/process/gegl-have-visitor.c |    6 ++++++
+ 1 files changed, 6 insertions(+), 0 deletions(-)
+
+commit 681ebea8f590f3853b4a82ba172c395608fd5db6
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Sat Jan 23 15:13:54 2010 +0100
+
+    gegl: Simplify gegl_have_visitor_visit_node()
+
+    Simplify gegl_have_visitor_visit_node() slightly be getting rid of a
+    local variable that is not needed.
+
+ gegl/process/gegl-have-visitor.c |    5 +----
+ 1 files changed, 1 insertions(+), 4 deletions(-)
+
+commit 54cd86d678d820ca6cf05fb3c796183b35591bb3
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Sat Jan 23 14:59:38 2010 +0100
+
+    docs: Add paragraph about useful functions for interactive debugging
+
+    Add paragraph about useful functions for interactive debugging to
+    development.txt.
+
+ docs/development.txt |   17 +++++++++++++++++
+ 1 files changed, 17 insertions(+), 0 deletions(-)
+
+commit 653181c015efd74f2d0cf754525708dde3fe76e3
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Sat Jan 23 14:00:33 2010 +0100
+
+    operations: Namespace static functions for "gegl:png-save"
+
+    Namespace static functions for "gegl:png-save" so breakpoint setting
+    and stack traces becomes easier and nicer.
+
+ operations/external/png-save.c |    8 ++++----
+ 1 files changed, 4 insertions(+), 4 deletions(-)
+
+commit 46b3133fa210169cf99bd6d26e3601045c63c005
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sat Jan 23 03:27:53 2010 +0000
+
+    img_cmp: Write an debug output file highlighting pixel differences
+
+    Write a -diff.png in the same directory as the second argument,
+    this file indicates which pixels differ and how much (brighter
+    pixels differ more), grayscale pixels are correct.
+
+ tools/img_cmp.c |   85
+ ++++++++++++++++++++++++++++++++++++++++++++++++------
+ 1 files changed, 75 insertions(+), 10 deletions(-)
+
+commit 54025c0c1bd81e902d6c9069d7078578e6c68fb1
+Author: Nils Philippsen <nils@redhat.com>
+Date:   Wed Jan 20 17:31:19 2010 +0100
+
+    use ARGV.length instead of ARGV.count
+
+    in older ruby versions, arrays don't have the .count method
+
+ tools/gobj2dot.rb |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
+
+commit c0b389502b6ec8e1a4e6199f71e57d75dccc75c0
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Tue Jan 19 23:29:43 2010 +0000
+
+    Remove text from clones test in test/compositions
+
+    Text depends on too many parameters, like installed fonts and
+    rendering
+    subsystem. Might later add separate text rendering tests, with perhaps
+    that only warn about differences and not distrupt check/distcheck.
+
+ tests/compositions/clones.xml           |    2 ++
+ tests/compositions/reference/clones.png |  Bin 817820 -> 787183 bytes
+ 2 files changed, 2 insertions(+), 0 deletions(-)
+
+commit 520d69ab8a78e38af2c557d69323e9f9c4158aac
+Author: Debarshi Ray <debarshir@src.gnome.org>
+Date:   Tue Jan 12 23:53:25 2010 +0200
+
+    affine: Add fast paths for axis aligned reflect
+
+    Fixing bug 592106
+
+ operations/affine/affine.c |  188
+ +++++++++++++++++++++++++++++++++++++++++++-
+ 1 files changed, 184 insertions(+), 4 deletions(-)
+
+commit e45a42c7eafc12b30600589b2327f9a3d52a931c
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Mon Jan 18 23:53:00 2010 +0000
+
+    Replaced car-stack.jpg in tests/compositions with png
+
+ tests/compositions/clones.xml         |    2 +-
+ tests/compositions/data/car-stack.jpg |  Bin 69071 -> 0 bytes
+ tests/compositions/data/car-stack.png |  Bin 0 -> 454266 bytes
+ 3 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 282e605144230341250b92c9f755fc2eeb763394
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Mon Jan 18 11:23:24 2010 +0000
+
+    Update AUTHORS
+
+ AUTHORS |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
+
+commit 3997343977f6ecb4754de4714f9b06727ed388e8
+Author: Danny Robson <danny@blubinc.net>
+Date:   Mon Jan 18 21:46:42 2010 +1100
+
+    Check cached parameters to avoid relinking nodes
+
+    When prepare is called, we have been relinking the
+    input/composite/output nodes dependent on whether there is an input.
+    This causes massive cache invalidations on every call to prepare,
+    halting forward progress of gegl_processor_render. Cache the previous
+    parameters and only relink the nodes if there has been a change.
+
+ operations/common/layer.c |  112
+ ++++++++++++++++++++++++++------------------
+ 1 files changed, 66 insertions(+), 46 deletions(-)
+
+commit 9907ffa3474bb6a5f4cce5691b2c4a9dc26d0d93
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Mon Jan 18 01:18:07 2010 +0000
+
+    img_cmp: report error as Δe tolerate a max Δe of 1.5 as no-error
+
+ tools/img_cmp.c |   34 ++++++++++++++++++++--------------
+ 1 files changed, 20 insertions(+), 14 deletions(-)
+
+commit fb43f48a4c18c36cc7fc51f396819fcbaf05a40f
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Mon Jan 18 01:17:05 2010 +0000
+
+    Replace reflect reference image with a better one
+
+    The previous one had some color alterations in black due to
+    resampling.
+
+ tests/compositions/reference/reflect.png |  Bin 930 -> 838 bytes
+ 1 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 5105d5fdc366747ecb0042ff69b6f781d2e03611
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sun Jan 17 23:13:38 2010 +0000
+
+    img_cmp: correct computation of % pixels wrong
+
+ tools/img_cmp.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 960e3934e722c0b0a8a8ae84026c8bf020bb7aa5
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sun Jan 17 17:17:48 2010 +0000
+
+    Fix XML composition based regression test system.
+
+    The previous commit didn't fix it, hopefully this does, probably
+    this is
+    broken on win32
+
+ .gitignore                     |    4 ++++
+ tests/compositions/Makefile.am |    4 ++--
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
+commit f119279d23674cf1f4017ce644b6fc24cfc1d6dc
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sun Jan 17 17:09:00 2010 +0000
+
+    Fix XML composition based regression test system.
+
+    In working around srcdir!=builddir issues, local plain build was
+    broken,
+    this should fix it.
+
+ tests/compositions/Makefile.am |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 7d84c22fef081c1bd5958fddfe255cca65a08880
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sun Jan 17 16:07:53 2010 +0000
+
+    Added an XML composition driven test system
+
+ configure.ac                              |    2 +
+ tests/Makefile.am                         |    2 +-
+ tests/compositions/.gitignore             |    5 +
+ tests/compositions/Makefile.am            |   39 +++++
+ tests/compositions/clones.xml             |  223
+ +++++++++++++++++++++++++++++
+ tests/compositions/data/.gitignore        |    2 +
+ tests/compositions/data/Makefile.am       |    1 +
+ tests/compositions/data/car-stack.jpg     |  Bin 0 -> 69071 bytes
+ tests/compositions/data/gegl.png          |  Bin 0 -> 11248 bytes
+ tests/compositions/data/grid.png          |  Bin 0 -> 314 bytes
+ tests/compositions/reference/clones.png   |  Bin 0 -> 817820 bytes
+ tests/compositions/reference/reflect.png  |  Bin 0 -> 930 bytes
+ tests/compositions/reference/reflect2.png |  Bin 0 -> 959 bytes
+ tests/compositions/reference/rotate.png   |  Bin 0 -> 9424 bytes
+ tests/compositions/reflect.xml            |   10 ++
+ tests/compositions/reflect2.xml           |   10 ++
+ tests/compositions/rotate.xml             |    9 ++
+ tests/compositions/verify-results.sh      |   14 ++
+ tools/Makefile.am                         |    2 +-
+ tools/img_cmp.c                           |  108 ++++++++++++++
+ 20 files changed, 425 insertions(+), 2 deletions(-)
+
+commit a58213345f9500ad4b1ee83dc176af109184d9b8
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sun Jan 17 15:58:53 2010 +0000
+
+    gegl_exit: Removed stray g_printf
+
+ gegl/gegl-init.c |    4 +---
+ 1 files changed, 1 insertions(+), 3 deletions(-)
+
+commit 5e6d1d95e999e4b505424196fc43c2a1c814a02c
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sat Jan 16 14:06:42 2010 +0000
+
+    configure: Require babl 0.1.2 or newer
+
+ configure.ac |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit aa95cb3e2561279cb83986f241336ff086e20ef6
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Thu Jan 14 21:27:17 2010 +0100
+
+    docs: Put inheritance.png in builddir
+
+    Cause make distcheck to pass by outputting inheritance.png in the
+    builddir rather than source dir. The documentation is still messed up
+    when having srcdir != builddir, but at least we pass make distcheck.
+
+ docs/Makefile.am |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
+
+commit 7f5c5add3a8c8da97f08dee89c51acb284e6f70e
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Tue Jan 12 18:20:29 2010 +0000
+
+    Updated NEWS for 0.1.2 release.
+
+ NEWS |   19 +++++++++++++++++++
+ 1 files changed, 19 insertions(+), 0 deletions(-)
+
+commit 3bd64469cf6713462f072a33ff02d5d527e17632
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Sun Jan 10 18:33:39 2010 +0100
+
+    gegl: Clarify that gegl_processor_destroy() will always only unref
+
+ gegl/process/gegl-processor.c |    5 +++++
+ 1 files changed, 5 insertions(+), 0 deletions(-)
+
+commit 91766d031a5e794303572d7af82f0491bd3afb33
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Sun Jan 10 17:54:25 2010 +0100
+
+    operations: Namespace functions in "gegl:jpg-load"
+
+    Namespace functions in "gegl:jpg-load" to make profiling easier.
+
+ operations/external/jpg-load.c |   40
+ ++++++++++++++++++++--------------------
+ 1 files changed, 20 insertions(+), 20 deletions(-)
+
+commit 4c97bbd0c8a84261a09ff5d41313a115dd5a90b3
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sun Jan 10 15:14:39 2010 +0000
+
+    configure: added warning that --enable-mt is unstable
+
+ configure.ac |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+commit d927c935346d6c0ee14acfa84e534b920cf320a7
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Tue Jan 5 13:44:00 2010 +0100
+
+    operations: Fix warning about mixed code and variables in path.c
+
+ operations/external/path.c |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
+
+commit baf7fe93385c2505124c03a72e83df7486243674
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Tue Jan 5 13:43:08 2010 +0100
+
+    operations: Fix cast in nop.c
+
+ operations/core/nop.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit d353649f96b1abd0b844713586d46b63923e2809
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Tue Jan 5 13:42:39 2010 +0100
+
+    examples: #include <glib/gstdio.h> in float-lookup.c
+
+    #include <glib/gstdio.h> in float-lookup.c to get rid of warning.
+
+ examples/float-lookup.c |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+commit 89e02dde40874b3e227e5b570ad055d1d179e35d
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Tue Jan 5 13:42:07 2010 +0100
+
+    examples: Update .gitignore
+
+ examples/.gitignore |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+commit df7ad5ee6bfbcb88a7312e1fd6ed2abd2fdff289
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Tue Jan 5 13:28:09 2010 +0100
+
+    operations: Consistently use dash as word separator in ops
+
+    Consistently use dash as word separator in the filename of dynamically
+    loaded operations.
+
+    WARNING: This change can cause problems for you if you don't purge
+    your existing installation before installing the ops with the new
+    names.
+
+ operations/common/weighted-blend.c       |  124
+ ++++++++++++++++++++++++++++++
+ operations/common/weighted_blend.c       |  124
+ ------------------------------
+ operations/workshop/external/Makefile.am |    6 +-
+ 3 files changed, 127 insertions(+), 127 deletions(-)
+
+commit c0cf86be747de941e8f96a8c4064b08fa4b942a0
+Author: Étienne BERSAC <etienne.bersac@corp.nerim.net>
+Date:   Wed Dec 23 19:41:54 2009 +0100
+
+    Correct my forname :x
+
+ bindings/vala/AUTHORS |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 05bab041a5eff7a5f3cca3674fd7d00352d9ef79
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Thu Dec 10 18:10:32 2009 +0000
+
+    gegl:lua fix bitrot in build/code
+
+ configure.ac                         |    2 +-
+ operations/workshop/external/gluas.c |  152
+ +++++++++++-----------------------
+ 2 files changed, 48 insertions(+), 106 deletions(-)
+
+commit 6f6681d4f72c68c4d8bf0b5ece1be74dc0f95e98
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Tue Dec 8 22:37:55 2009 +0000
+
+    Added macros for annotating objects passed in graph.
+
+    Wrapping g_object_get and set data, but the code using it is
+    clearer using these macros.
+
+ gegl/graph/gegl-node.h                         |    7 +++++++
+ gegl/operation/gegl-operation-point-composer.c |    8 ++++----
+ gegl/operation/gegl-operation-point-filter.c   |   16 ++++++++--------
+ gegl/process/gegl-eval-mgr.c                   |   12 ++++++------
+ gegl/process/gegl-eval-visitor.c               |    2 +-
+ operations/affine/affine.c                     |    7 ++-----
+ operations/core/crop.c                         |    5 +++--
+ 7 files changed, 31 insertions(+), 26 deletions(-)
+
+commit 680c8e20d31f93c8589c852a9728a964c63a726f
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sun Dec 6 22:15:34 2009 +0000
+
+    Removed tonemap operation
+
+ operations/common/tonemap.c |  138
+ -------------------------------------------
+ 1 files changed, 0 insertions(+), 138 deletions(-)
+
+commit 1a6161f0f55b69d0290daff57f43b5baf7202750
+Author: Michael Natterer <mitch@gimp.org>
+Date:   Tue Dec 8 12:19:28 2009 +0100
+
+    Pull the pointer into the GeglLookupFunction typedef; formatting
+
+ gegl/gegl-lookup.c |   27 +++++++++++++++------------
+ gegl/gegl-lookup.h |   34 ++++++++++++++++++----------------
+ 2 files changed, 33 insertions(+), 28 deletions(-)
+
+commit b0d8f540ca4506cc31d32483c656be39eb8b0319
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sun Dec 6 17:11:48 2009 +0000
+
+    Use separate iterations indices for read/write when iterating.
+
+    (GeglBufferIterator doesn't support reusing the write handle for
+    reading)
+
+ gegl/operation/gegl-operation-point-composer.c |    5 ++++-
+ gegl/operation/gegl-operation-point-filter.c   |    6 ++++--
+ 2 files changed, 8 insertions(+), 3 deletions(-)
+
+commit eb7fb2bf212d5f823e87649c2e138a6bfe85031b
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sun Dec 6 16:58:22 2009 +0000
+
+    Annotate temporary buffers to restrict in-place processing.
+
+    In place processing should not occur on buffers that are used in other
+    parts of the graph (and potentially also do in place processing on
+    the input). gegl-eval-visitor set's a "no in-place" data on
+
+ gegl/operation/gegl-operation-context.c      |    4 +---
+ gegl/operation/gegl-operation-context.h      |    2 ++
+ gegl/operation/gegl-operation-point-filter.c |   17 +++++------------
+ gegl/process/gegl-eval-visitor.c             |   16 ++++++++++++++++
+ operations/affine/affine.c                   |    6 ++++++
+ operations/core/crop.c                       |    4 ++++
+ 6 files changed, 34 insertions(+), 15 deletions(-)
+
+commit 47b1799cfa1c3a625c105e2871d7b20cdfc878b0
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sun Dec 6 16:54:51 2009 +0000
+
+    gegl:unsharp-mask rearrange graph to allow more in-place processing
+
+ operations/common/unsharp-mask.c |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+commit da0f398febd485160fc627717ab1f7a1ea6d789c
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sun Dec 6 16:47:10 2009 +0000
+
+    gegl:text Invalidated computed data (and caches) when text layout
+    changes.
+
+ operations/external/text.c |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+commit 70b8f04ecd6267cb88fd087966d01d1a97f47480
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sun Dec 6 16:40:53 2009 +0000
+
+    gegl_node_invalidated accept NULL as region to invalidate
+
+    When passing NULL as the region to invalidate to gegl_node_invalidated
+    or gegl_operation_invalidated, the entire current have_rect of the
+    operation will be invalidated.
+
+ gegl/graph/gegl-node.c          |    4 +++-
+ gegl/operation/gegl-operation.h |   13 ++++++++++---
+ 2 files changed, 13 insertions(+), 4 deletions(-)
+
+commit 3acebe93ee13f40c9c6c78250dd9aaac42fed504
+Author: Adam Turcotte <adam.turcotte@gmail.com>
+Date:   Fri Aug 14 14:44:33 2009 -0400
+
+    Improved version of the Nohalobox samplers (downsize, downsharp,
+    and downsmooth). A small improvement for each sampler is being
+    developed, and downsmooth will be re-written. This patch fixes some
+    bugs that were re-instated by overriding a previous commit in the
+    previous patch.
+
+ gegl/buffer/Makefile.am               |    6 +
+ gegl/buffer/gegl-buffer-access.c      |    3 +
+ gegl/buffer/gegl-buffer.c             |    3 +
+ gegl/buffer/gegl-buffer.h             |    3 +
+ gegl/buffer/gegl-sampler-downsharp.c  |   26 +
+ gegl/buffer/gegl-sampler-downsharp.h  |   48 ++
+ gegl/buffer/gegl-sampler-downsize.c   |  943
+ +++++++++++++++++++++++++++++++++
+ gegl/buffer/gegl-sampler-downsize.h   |   48 ++
+ gegl/buffer/gegl-sampler-downsmooth.c |   26 +
+ gegl/buffer/gegl-sampler-downsmooth.h |   48 ++
+ gegl/buffer/gegl-sampler.c            |  310 +++++++-----
+ gegl/buffer/gegl-sampler.h            |    1 +
+ gegl/gegl-matrix.h                    |    1 +
+ operations/affine/affine.c            |   10 +-
+ 14 files changed, 1351 insertions(+), 125 deletions(-)
+
+commit 64e04d2f55b7d0daa8ce813a21f423d1f753ec9e
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sat Dec 5 17:31:56 2009 +0000
+
+    rgegl - updated an example
+
+    xmlparsing.rb was still referring to gegl:shift which is deprecated in
+    favor of gegl:translate with fast paths for integers.
+
+ bindings/rgegl/samples/xml-parsing.rb |   46
+ +++++++++++++++++++++++++++-----
+ 1 files changed, 38 insertions(+), 8 deletions(-)
+
+commit 099b3e9fc535b43d2e5d92709d7306160ddaa2e1
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sat Dec 5 16:48:41 2009 +0000
+
+    tools/xml_insert.sh specify bash in #!
+
+    Fixing bug #556972
+
+    This entire tool can probably be replaced by a oneliner in the
+    makefile.
+
+ tools/xml_insert.sh |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 1704f7573406723dac00db503d64abbbc3a14851
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sat Dec 5 15:57:33 2009 +0000
+
+    GeglNodePrivate reduced maximum number of evalmgrs to 8
+
+    This makes the full GeglNodePrivate data structure fit in a single
+    cacheline.
+
+ gegl/graph/gegl-node.c |    7 +++++--
+ 1 files changed, 5 insertions(+), 2 deletions(-)
+
+commit 830d98029c60f7b4b464e978e5221aef208af46c
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sat Dec 5 03:17:45 2009 +0000
+
+    gegl:layer fix passthrough redirection in prepare when there is
+    no source
+
+    fixes bug #541468
+
+ operations/common/layer.c |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
+
+commit d4dff1859ab354f7dbccac9849d5e97adf879e72
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sat Dec 5 03:04:15 2009 +0000
+
+    adjust column layout of time instrumentation
+
+ gegl/gegl-instrument.c |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
+
+commit 77a1a8240c7902350393146f4b93404759d3a2a6
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sat Dec 5 02:35:52 2009 +0000
+
+    Removed duplicate #define g4float_half
+
+    As per bug #593935
+
+ gegl/gegl-simd.h |    1 -
+ 1 files changed, 0 insertions(+), 1 deletions(-)
+
+commit feb7b85accd4a73b4e43d006e44f171ed8018d8e
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sat Dec 5 00:27:32 2009 +0000
+
+    gaussian-blur: do not force FIR filter
+
+ operations/common/gaussian-blur.c |   15 ++++++++-------
+ 1 files changed, 8 insertions(+), 7 deletions(-)
+
+commit 234ca77876ee77c5d180e56381bceb378eb1223c
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sat Dec 5 00:15:58 2009 +0000
+
+    Removed gegl:normal duplicates the code of gegl:over
+
+ operations/common/normal.c |  186
+ --------------------------------------------
+ 1 files changed, 0 insertions(+), 186 deletions(-)
+
+commit 432e13b696ef6086904973ee86ee7a60d8ea39b1
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Fri Dec 4 00:29:23 2009 +0000
+
+    GeglLookup: Made the precision/dimensions configurable
+
+ examples/float-lookup.c |   60 +++++++++-------------
+ gegl/gegl-lookup.c      |  128
+ +++++++++++++++++++++++++++++++++++++++++++++--
+ gegl/gegl-lookup.h      |   75 ++++++++--------------------
+ 3 files changed, 169 insertions(+), 94 deletions(-)
+
+commit 7d9914196a76f7dacb75c9ef90b3318d5e201ab6
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Fri Dec 4 00:25:02 2009 +0000
+
+    GeglOperationPointFilter Removed unused variable
+
+ gegl/operation/gegl-operation-point-filter.c |    1 -
+ 1 files changed, 0 insertions(+), 1 deletions(-)
+
+commit 72a972b5e661f1840fdf442cf59440b5e9f8bbf3
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Fri Dec 4 00:24:24 2009 +0000
+
+    GeglOperationPointComposer fixed a typobug
+
+ gegl/operation/gegl-operation-point-composer.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 60828682515d345023a3ffacaf39cc46cb874cad
+Author: Michael Natterer <mitch@gimp.org>
+Date:   Thu Dec 3 17:07:02 2009 +0100
+
+    Use g_slice_new0() for GeglLookup so the tables don't contain garbage
+
+ gegl/gegl-lookup.c |    7 ++++---
+ 1 files changed, 4 insertions(+), 3 deletions(-)
+
+commit 6287ded1dafbdf8632ad064968261a7bef20590d
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Thu Dec 3 13:09:42 2009 +0000
+
+    Moved GeglLookup to its own files.
+
+    Also turned off caching of negative values.
+    Note: changes to these values are a change in the ABI and ops using
+    GeglLookup will have to be recompiled.
+
+ examples/float-lookup.c |    2 +-
+ gegl/Makefile.am        |    3 +
+ gegl/gegl-lookup.c      |   39 +++++
+ gegl/gegl-lookup.h      |  115 +++++++++++++
+ gegl/gegl-plugin.h      |    2 +
+ gegl/gegl-types.h       |    1 -
+ gegl/gegl-utils.c       |  427
+ ++++++++++++++++++++++++-----------------------
+ gegl/gegl-utils.h       |   80 ---------
+ 8 files changed, 374 insertions(+), 295 deletions(-)
+
+commit a7e87a3c0409ea32f933b55c0678606ad03fa322
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Thu Dec 3 12:21:50 2009 +0000
+
+    Added general caching floating point lookup table code.
+
+ examples/float-lookup.c |   78
+ ++++++++++++++++++++++++++++++++++++++++++++++
+ gegl/gegl-types.h       |    1 +
+ gegl/gegl-utils.h       |   79
+ +++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 158 insertions(+), 0 deletions(-)
+
+commit d5133d23a9819b06a511f0f1f63ab0351f3344dc
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Wed Dec 2 20:58:23 2009 +0000
+
+    buffer: Fix double opening of input stream in file tile backend
+
+    Also re-arranged ifdef guards for compiling without GIO (still kept as
+    it might be relevant for mmaping tiles directly. )
+
+ gegl/buffer/gegl-tile-backend-file.c |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
+
+commit 9d71f999ec053edc7c607675095dafd106a56950
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Wed Dec 2 20:43:52 2009 +0000
+
+    gegl:opacity Only build process_simd() when HAS_G4FLOAT is defined
+
+ operations/common/opacity.c |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+commit f21fb47f4b64c101373f1194cb4ba5755d065c4e
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Tue Dec 1 19:14:40 2009 +0000
+
+    Fix bug in previous commit.
+
+    Do not increment pointers inside macros that evaluates their arguments
+    multiple times.
+
+ operations/common/opacity.c |   10 ++++++++--
+ 1 files changed, 8 insertions(+), 2 deletions(-)
+
+commit 1d081f87f63b6fdc07df772cf8462b927b96d033
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Tue Dec 1 19:03:41 2009 +0000
+
+    Added a SIMD version of gegl:opacity
+
+ operations/common/opacity.c |  110
+ ++++++++++++++++++++++++++-----------------
+ 1 files changed, 66 insertions(+), 44 deletions(-)
+
+commit 3646ac1a15a2ed3165f27091cf61df68937f092c
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Tue Dec 1 03:57:11 2009 +0000
+
+    Remove reference to non-existing file in Makefile.am
+
+ gegl/buffer/Makefile.am |    1 -
+ 1 files changed, 0 insertions(+), 1 deletions(-)
+
+commit 44feda7ebd03c172691bf12328f73cdf85e2d17b
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Tue Dec 1 03:09:23 2009 +0000
+
+    Reduce number of needed iterators.
+
+ gegl/operation/gegl-operation-point-composer.c |    2 +-
+ gegl/operation/gegl-operation-point-filter.c   |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 3441f0b7b34482d67ccc20ef00350e6112c03242
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Tue Dec 1 01:20:32 2009 +0000
+
+    Fixed mistake made when refactoring logic away from base class
+
+    Enable passthrough
+
+ gegl/operation/gegl-operation-point-filter.c |    9 ++++-----
+ 1 files changed, 4 insertions(+), 5 deletions(-)
+
+commit 7e61adb293d36bf9a4c395aecaa6ef41d3f99d25
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Tue Dec 1 00:58:50 2009 +0000
+
+    Fix pool in buffer iterator
+
+    The buffer pool was leaking when ENABLE_MT was not defined.
+
+ gegl/buffer/gegl-buffer-iterator.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 66a7cd72883baff6575fd25295bf499767258fd3
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Fri Nov 27 00:41:46 2009 +0000
+
+    Re-enable shared read-write buffers.
+
+    glib provides the ability to open files read/write now, re-enabled
+    code that synchronises access from multiple concurrent GEGL processes.
+    The code seems to have some flakiness but it basically works.
+
+ examples/geglbuffer-clock.c          |    9 +++-
+ examples/multiplayer-paint.sh        |   10 ++--
+ gegl/buffer/Makefile.am              |    1 +
+ gegl/buffer/gegl-buffer-access.c     |    2 -
+ gegl/buffer/gegl-buffer-iterator.c   |    5 ++-
+ gegl/buffer/gegl-buffer-linear.c     |    2 +-
+ gegl/buffer/gegl-buffer.c            |   27 +++++------
+ gegl/buffer/gegl-tile-backend-file.c |   83
+ +++++++++++++++++++--------------
+ gegl/buffer/gegl-tile.c              |    4 --
+ gegl/gegl-config.c                   |    4 +-
+ gegl/property-types/gegl-path.c      |   12 +++--
+ operations/common/buffer-source.c    |   14 ++++++
+ 12 files changed, 101 insertions(+), 72 deletions(-)
+
+commit f9afacc3cd9a23c4793cefe7d73532cace5875ad
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sun Nov 29 14:47:23 2009 +0000
+
+    [buffer] Use slice allocator for GeglBufferIterator
+
+ gegl/buffer/gegl-buffer-iterator.c |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 4f9e17e80b0a3b6c685d526e325b746cc2af8763
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sun Nov 29 01:08:49 2009 +0000
+
+    never pass through
+
+ gegl/operation/gegl-operation-point-filter.c |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+commit b3cb426e5698f8410e8e3f0b840001b3956adad6
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sat Nov 28 02:17:21 2009 +0000
+
+    Made the stamp mask for stroking the path static.
+
+    Fixes a leak but makes this visually break for mp.
+
+ gegl/property-types/gegl-path.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit bd2d4a07f2ca2f3d7aa3030417b53f2e1fe5b20a
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Fri Nov 27 13:38:30 2009 +0000
+
+    Require glib 2.22.0 or newer.
+
+ configure.ac |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 163658082921e92828cd2f908fd38653c0a7417d
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Thu Nov 26 22:27:17 2009 +0000
+
+    Added an implementation of posterize to workshop
+
+ operations/workshop/posterize.c |   92
+ +++++++++++++++++++++++++++++++++++++++
+ 1 files changed, 92 insertions(+), 0 deletions(-)
+
+commit e2c0bd46f2fe209bcd7f1f36c7ffe590e199fe17
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Wed Nov 25 00:18:20 2009 +0000
+
+    Moved specilisation logic from base class.
+
+    There should need to be no knowledge of the child class in the
+    superclass.
+
+ gegl/operation/gegl-operation-filter.c       |   64 ++-------------------
+ gegl/operation/gegl-operation-point-filter.c |   80
+ ++++++++++++++++++++++++-
+ 2 files changed, 82 insertions(+), 62 deletions(-)
+
+commit 962b2d0a4ed6485fbc6454c8afcd981f331dd424
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Tue Nov 24 22:44:32 2009 +0000
+
+    Fix Makefile installed to ~/.local/share/gegl-0.1/plug-ins
+
+ gegl/gegl-init.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 59a9dac19e5ae1ef58d0bbb9da8d73c5e9c15d34
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Tue Nov 24 22:01:46 2009 +0000
+
+    Removed some typechecks in performance critical internal API
+
+ gegl/graph/gegl-visitable.c |    2 --
+ gegl/graph/gegl-visitor.c   |   13 -------------
+ 2 files changed, 0 insertions(+), 15 deletions(-)
+
+commit a3817b513894b8ba4e0c0ed84655fd7f0312f1c6
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Tue Nov 24 21:57:44 2009 +0000
+
+    Made gegl_node_get_depends on static
+
+    This is internal API so also removed typecheck to remove some
+    overhead.
+
+ gegl/graph/gegl-node.c |    7 +------
+ gegl/graph/gegl-node.h |    1 -
+ 2 files changed, 1 insertions(+), 7 deletions(-)
+
+commit 81ad086e863b04eafaf0ffd02ceeb134cbc0095a
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Tue Nov 24 18:27:22 2009 +0000
+
+    [op:grey] Add a dummy value copying loop to process()
+
+ operations/common/grey.c |   10 ++++++++++
+ 1 files changed, 10 insertions(+), 0 deletions(-)
+
+commit aca0d6dd65f891cfcb9377e18361c26b11a18404
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Tue Nov 24 18:04:35 2009 +0000
+
+    Replace g_object_unref with gegl_tile_unref a couple of places.
+
+ gegl/buffer/gegl-buffer-access.c      |   10 +++++-----
+ gegl/buffer/gegl-buffer-linear.c      |    2 +-
+ gegl/buffer/gegl-buffer-load.c        |    2 +-
+ gegl/buffer/gegl-buffer-save.c        |    2 +-
+ gegl/buffer/gegl-tile-handler-cache.c |    6 +++---
+ gegl/buffer/gegl-tile-handler-zoom.c  |    2 +-
+ 6 files changed, 12 insertions(+), 12 deletions(-)
+
+commit 6bc28589bce3a112d70f738290090745873ec146
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Tue Nov 24 01:23:12 2009 +0000
+
+    Removed babl processing time instrumentation
+
+ gegl/process/gegl-eval-visitor.c |    4 ----
+ 1 files changed, 0 insertions(+), 4 deletions(-)
+
+commit a1902d2ddecaae905f8244edd40e5da85dc8dda9
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sun Nov 22 21:57:26 2009 +0000
+
+    Trimmed down ang reindented csugar example
+
+ examples/csugar.c |   25 ++++++++++++-------------
+ 1 files changed, 12 insertions(+), 13 deletions(-)
+
+commit 7f00beed5a06c534738e09f68ce595b7a3a30c19
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sun Nov 22 21:48:15 2009 +0000
+
+    Added syntactic sugar for graph construction for C
+
+ examples/csugar.c |   59 ++++++++++++++++++++
+ gegl/Makefile.am  |    1 +
+ gegl/gegl-c.c     |  158
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ gegl/gegl.h       |   36 ++++++++++++
+ 4 files changed, 254 insertions(+), 0 deletions(-)
+
+commit c9bfad47bfa30d4cfe8f937f9bc9dda6f4d10d68
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sun Nov 22 21:43:32 2009 +0000
+
+    Cleaned up API comment string inconsistencies.
+
+ gegl/gegl-utils.h               |    5 ++---
+ gegl/gegl.h                     |    5 +++--
+ gegl/property-types/gegl-path.h |    4 ++++
+ 3 files changed, 9 insertions(+), 5 deletions(-)
+
+commit 9a33312122c116cc3549f886bec05579dd3d726a
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sun Nov 22 21:22:02 2009 +0000
+
+    Made gegl_node_get_producer() return the graph node of meta-ops
+
+    It was returning the proxy-nop representing the output pad, this
+    can seldomly be what is expected.
+
+ gegl/graph/gegl-node.c |   50
+ ++++++++++++++++++++++++++++++++---------------
+ 1 files changed, 34 insertions(+), 16 deletions(-)
+
+commit d2c2c130a028621c106c869e0136a75905917b03
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sun Nov 22 21:19:21 2009 +0000
+
+    Removed unused hack for output proxy pads
+
+ gegl/graph/gegl-node.c |    8 --------
+ 1 files changed, 0 insertions(+), 8 deletions(-)
+
+commit e3e11f3f9d72daf377d1b1e88fee7e83bc60356a
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sun Nov 22 16:11:32 2009 +0000
+
+    Made the number of threads configurable.
+
+    Added a threads member to GeglConfig which is picked up by
+    environment variable or commandline. Default value 2.
+
+ gegl/buffer/gegl-cache.c            |    1 +
+ gegl/gegl-config.c                  |   26 +++++++++++++++++++++++++-
+ gegl/gegl-config.h                  |    3 +++
+ gegl/gegl-init.c                    |   19 ++++++++++++++++++-
+ gegl/gegl-instrument.c              |    2 --
+ gegl/graph/gegl-node.c              |    6 +++++-
+ gegl/operation/gegl-operation.c     |   12 +++++++++++-
+ gegl/process/gegl-eval-mgr.c        |    4 +++-
+ gegl/process/gegl-have-visitor.c    |    6 ++++++
+ gegl/process/gegl-prepare-visitor.c |   12 ++++++++++++
+ gegl/property-types/gegl-path.c     |    2 +-
+ operations/external/path.c          |    4 +++-
+ 12 files changed, 88 insertions(+), 9 deletions(-)
+
+commit bc28410da5202d8f5c6d872c8ceaf5ef9e66f9fa
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sun Nov 22 11:43:40 2009 +0000
+
+    Enabled in-place processing for point filters/composers
+
+    Needed to revert to duplicate registration of the in-place buffer with
+    GeglBufferIterator.
+
+ gegl/operation/gegl-operation-filter.c         |    6 ------
+ gegl/operation/gegl-operation-point-composer.c |    6 +-----
+ gegl/operation/gegl-operation-point-filter.c   |    6 +-----
+ 3 files changed, 2 insertions(+), 16 deletions(-)
+
+commit effba12adadf807749d68b5aed12f67871b6b180
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sat Nov 21 23:37:50 2009 +0000
+
+    Use g_atomic_int_inc to increment the unique number for the swapname
+
+ gegl/buffer/gegl-buffer.c |   10 ++++------
+ 1 files changed, 4 insertions(+), 6 deletions(-)
+
+commit b95048d13190a7a630b1406faea1889ad1fdbaad
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sat Nov 21 22:35:03 2009 +0000
+
+    [buffer] add #if ENABLE_MP guards
+
+ gegl/buffer/gegl-buffer.c |    4 ++++
+ 1 files changed, 4 insertions(+), 0 deletions(-)
+
+commit 2a1ea084c5d29819a1ac9c44d83272dd9dad11f5
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sat Nov 21 22:32:43 2009 +0000
+
+    [tile] Use g_atomic_int_inc and g_atomic_int_dec_and_test for
+    refcount.
+
+ gegl/buffer/gegl-tile.c |    5 ++---
+ 1 files changed, 2 insertions(+), 3 deletions(-)
+
+commit 9a6d830a812d85e7a8d5852d4058d2c29ee87dc0
+Author: Michael Schumacher <schumaml@gmx.de>
+Date:   Sat Nov 21 23:29:27 2009 +0100
+
+    Fix typo: G_OS_WIN_32 -> G_OS_WIN32
+
+ gegl/buffer/gegl-buffer.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 5ddb8747d67db8c04e1a106cefcc3480d6d95043
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sat Nov 21 22:18:46 2009 +0000
+
+    Disable internals of gegl_bt() when on win32
+
+    This is a function that uses glibc extensions to build a string
+    of the backtrace from its point in code.
+
+ gegl/buffer/gegl-buffer.c |   11 +++++++++--
+ 1 files changed, 9 insertions(+), 2 deletions(-)
+
+commit 52e9229e74b3d7f219562141cc67b8a1f3c33c63
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sat Nov 21 21:55:29 2009 +0000
+
+    [affine] Avoid using variables in the op for intermediate
+    computations.
+
+ operations/affine/affine.c |   12 ++++++------
+ 1 files changed, 6 insertions(+), 6 deletions(-)
+
+commit 7315e30da9089954d92a55c55228adcdd7e409f0
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sat Nov 21 21:48:25 2009 +0000
+
+    Disable in-place processing when multi threading is enabled.
+
+    Perhaps the criteria that accepts passthrough processing can
+    be improved for the multiprocessing case?
+
+ gegl/operation/gegl-operation-filter.c |    5 +++++
+ 1 files changed, 5 insertions(+), 0 deletions(-)
+
+commit 5d7bd409395525bdc038e58cb161b62f96f96f4c
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sat Nov 21 20:38:10 2009 +0000
+
+    Made GeglTile be a struct instead of an object
+
+    Added a ref_count member that is used instead.
+
+ gegl/buffer/gegl-buffer-access.c      |    2 +-
+ gegl/buffer/gegl-buffer-iterator.c    |    2 +-
+ gegl/buffer/gegl-buffer-linear.c      |    2 +-
+ gegl/buffer/gegl-buffer.c             |    5 +-
+ gegl/buffer/gegl-tile-handler-cache.c |    8 +-
+ gegl/buffer/gegl-tile-handler-empty.c |    2 +-
+ gegl/buffer/gegl-tile.c               |  143
+ +++++----------------------------
+ gegl/buffer/gegl-tile.h               |   30 +++-----
+ 8 files changed, 45 insertions(+), 149 deletions(-)
+
+commit ccf2d24582dd5bc819a2ca81c358cfcada5e8906
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Fri Nov 20 02:42:57 2009 +0000
+
+    Fix typo in multi threading guards (s/ENABLE_MP/ENABLE_MT)
+
+ gegl/buffer/gegl-buffer-iterator.c    |   18 ++++++++--------
+ gegl/buffer/gegl-buffer-linear.c      |    4 +-
+ gegl/buffer/gegl-cache.c              |   10 ++++----
+ gegl/buffer/gegl-tile-handler-cache.c |   34
+ ++++++++++++++++----------------
+ gegl/buffer/gegl-tile.c               |   14 ++++++------
+ gegl/buffer/gegl-tile.h               |    2 +-
+ gegl/graph/gegl-node.c                |   24 +++++++++++-----------
+ gegl/graph/gegl-node.h                |    2 +-
+ gegl/graph/gegl-visitor.c             |    8 +++++-
+ gegl/property-types/gegl-path.c       |    2 +
+ tests/test-change-processor-rect.c    |    1 +
+ tests/test-color-op.c                 |    1 +
+ tests/test-proxynop-processing.c      |    1 +
+ 13 files changed, 65 insertions(+), 56 deletions(-)
+
+commit 3bf3d2e1341f05a9db8f4857276701ab4b88263b
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Fri Nov 20 01:52:31 2009 +0000
+
+    [buffer] Guard some multi threading code in #if #endif
+
+ gegl/buffer/gegl-buffer.c       |    7 ++++++-
+ gegl/buffer/gegl-tile-storage.c |    4 ++++
+ gegl/buffer/gegl-tile-storage.h |    3 ++-
+ 3 files changed, 12 insertions(+), 2 deletions(-)
+
+commit 3cffea77c943527457eec469a6f876dc1e5e005a
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Fri Nov 20 01:37:34 2009 +0000
+
+    Improved locking in GEGL
+
+    Resurrected GEGL multi threaded locks with locking at the tile level,
+    the performance gained from multi threading is small if detectable,
+    through the added overhead and lock contention. There still are
+    outstanding paralellisation issues.
+
+    There is a per tile mutex, per buffer (in ->tile_backend) mutex and
+    a per node mutex. You need to pass --enable-mt to configure/autogen
+    to enable the multi threading support.
+
+ bin/gegl.c                            |    1 +
+ configure.ac                          |   63 ++++++----
+ examples/gegl-paint.c                 |    3 +-
+ examples/hello-world.c                |    1 +
+ examples/util/gegl-view.c             |    3 +
+ gegl/buffer/gegl-buffer-access.c      |  108 ++++++---------
+ gegl/buffer/gegl-buffer-iterator.c    |   75 +++++++++--
+ gegl/buffer/gegl-buffer-linear.c      |   18 ++-
+ gegl/buffer/gegl-buffer-private.h     |   43 ++++---
+ gegl/buffer/gegl-buffer.c             |   42 ++++---
+ gegl/buffer/gegl-cache.c              |   15 ++
+ gegl/buffer/gegl-sampler.c            |    4 -
+ gegl/buffer/gegl-tile-backend.c       |    2 +-
+ gegl/buffer/gegl-tile-handler-cache.c |   71 +++++++++-
+ gegl/buffer/gegl-tile-storage.c       |    2 +
+ gegl/buffer/gegl-tile-storage.h       |    1 +
+ gegl/buffer/gegl-tile.c               |   30 ++++-
+ gegl/gegl-instrument.c                |    2 +
+ gegl/graph/gegl-node.c                |  235
+ +++++++++++++++++++++++++++++----
+ gegl/graph/gegl-node.h                |    4 +
+ gegl/graph/gegl-visitor.c             |    6 +
+ gegl/process/gegl-eval-mgr.c          |    6 +
+ gegl/property-types/gegl-path.c       |   14 +-
+ operations/affine/affine.c            |   89 +++++++------
+ operations/affine/affine.h            |    1 -
+ tools/introspect.c                    |    1 +
+ 26 files changed, 607 insertions(+), 233 deletions(-)
+
+commit 7a7eaad2356a9bc23ec0e03f91a74129f9b477e5
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Thu Nov 19 17:26:16 2009 +0000
+
+    When doing in-place processing use it only once in the iterator
+
+ gegl/operation/gegl-operation-filter.c         |    1 +
+ gegl/operation/gegl-operation-point-composer.c |    6 +++++-
+ gegl/operation/gegl-operation-point-filter.c   |    6 +++++-
+ 3 files changed, 11 insertions(+), 2 deletions(-)
+
+commit 7f05c5840522a82861e99ad2a1ebdd1dea36ae4e
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Sat Nov 14 18:23:18 2009 +0000
+
+    Revert commit 5658532 it is causing a buffer leak
+
+ gegl/operation/gegl-operation-context.c |    5 ++---
+ gegl/operation/gegl-operation.c         |    4 +---
+ 2 files changed, 3 insertions(+), 6 deletions(-)
+
+commit ff6fa983a1a7745d61286d8598f14e914627329c
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Fri Nov 13 03:06:23 2009 +0000
+
+    Updated gegl-paint code to reflect new property names on the path op.
+
+    Also set the buffer format to RGBA float, as a temporary workaround
+    to avoid over eager in place compositing.
+
+ examples/gegl-paint.c     |   16 +++++++++-------
+ examples/util/gegl-view.c |   14 +++++++-------
+ 2 files changed, 16 insertions(+), 14 deletions(-)
+
+commit fc97eca850246496a5c200f89f9a51ce117e1752
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Fri Nov 13 23:48:59 2009 +0000
+
+    Restore GeglProcessor queued_region member
+
+    This was removed in aed1f5bcfbc6 but is relied on by the GeglView
+    widgets used in gegl-paint.
+
+ gegl/process/gegl-processor.c |  179
+ ++++++++++++++++++++++++++++++-----------
+ 1 files changed, 133 insertions(+), 46 deletions(-)
+
+commit 0f1392e28d62fb9e3b3b50efc86c5d8191b9136c
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Thu Nov 12 23:59:30 2009 +0000
+
+    Add a hashtable to the tile cache
+
+    The tile cache is easily thousands of tiles, this avoid having to do
+    linear searches through all of the cache, the queue is mainted in
+    paralell.
+
+ gegl/buffer/gegl-tile-handler-cache.c |  118
+ +++++++++++++++++++++++----------
+ 1 files changed, 83 insertions(+), 35 deletions(-)
+
+commit 80af6edccf17805a8f1a1c3bf18d3c8e8ffc5664
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Thu Nov 12 23:00:25 2009 +0000
+
+    Remove unneeded ref/unref of interface
+
+ gegl/graph/gegl-visitable.c |    4 ----
+ 1 files changed, 0 insertions(+), 4 deletions(-)
+
+commit 03804bea494839f7b165d8cc237c2b3a47771913
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Thu Nov 12 22:58:50 2009 +0000
+
+    Fix build, the previous commit was incomplete.
+
+ gegl/operation/gegl-operation-point-composer.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 1bb5a9c74a958646b6391afbdd0e24f204878402
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Thu Nov 12 22:33:52 2009 +0000
+
+    Made point filter and composers able to operate in-place.
+
+    If the incoming buffer is not a gegl_cache, it is of the correct
+    format
+    and large enough to satisfy the entire result rect and we are the only
+    consumer of this pad we can operate directly on the passed input
+    buffer
+    instead of making a copy.
+
+ gegl/operation/gegl-operation-filter.c         |   40
+ +++++++++++++++++++++++-
+ gegl/operation/gegl-operation-point-composer.c |   20 +++++++++---
+ 2 files changed, 54 insertions(+), 6 deletions(-)
+
+commit 0219c2b130bcf01b87bd97366332fb255abdda3d
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Thu Nov 12 21:23:00 2009 +0000
+
+    Provide direct access to the cache buffer, do not use a sub buffer
+
+ gegl/operation/gegl-operation-context.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 8aaf7afae182a5e7b39810b001a94fce5bb8c6ec
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Thu Nov 12 21:22:30 2009 +0000
+
+    gaussian-blur, fix assumption about extent of output buffer.
+
+ operations/common/gaussian-blur.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 1581928e4b2b9b60b819e680f8abf06583ae0fc8
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Thu Nov 12 21:02:19 2009 +0000
+
+    Made normal be a custom op with the same shortcuts as over
+
+ operations/common/normal.c          |  186
+ +++++++++++++++++++++++++++++++++++
+ operations/generated/other-blend.rb |    6 +-
+ 2 files changed, 189 insertions(+), 3 deletions(-)
+
+commit 565853290dbdaa6475e74e53ecda76d8706e291d
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Thu Nov 12 17:38:13 2009 +0000
+
+    Share an empty buffer
+
+ gegl/operation/gegl-operation-context.c |    5 +++--
+ gegl/operation/gegl-operation.c         |    4 +++-
+ 2 files changed, 6 insertions(+), 3 deletions(-)
+
+commit d9462c7c6367e47f9e185db7cfb8739853fc7b38
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Thu Nov 12 17:37:26 2009 +0000
+
+    Build ops with external dependencies last.
+
+    (this makes more of the ops succesfully build if there is an
+    issue in those with external deps)
+
+ operations/Makefile.am |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 0b096b23ee0199f3423a5013b387564eff4d2b09
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Thu Nov 12 04:35:23 2009 +0000
+
+    Do not rely on input or output buffer extents in ops,
+    removing the need for GEGL to pass sub-buffers with
+    the input/output bounding boxes.
+
+ gegl/operation/gegl-operation-context.c |    4 +-
+ operations/common/bilateral-filter.c    |   41 ++++----
+ operations/common/box-blur.c            |   72 ++++++++-------
+ operations/common/c2g.c                 |   44 +++++----
+ operations/common/gaussian-blur.c       |  152
+ ++++++++++++++----------------
+ operations/common/snn-mean.c            |   28 +++---
+ operations/common/stress.c              |   34 ++++---
+ operations/external/text.c              |    2 +-
+ 8 files changed, 191 insertions(+), 186 deletions(-)
+
+commit de1557cc7a4cdb48c52f5c83c4b8afa1a135751b
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Thu Nov 12 04:58:04 2009 +0000
+
+    Fix bug in gegl_buffer_linear_open
+
+    Was always using the extent of the buffer and not passed in extent
+    when
+    doing pixel format conversion.
+
+ gegl/buffer/gegl-buffer-linear.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 40a4dac1a4c8381d8e41cbecb0507ec8e9eb522a
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Thu Nov 12 02:53:23 2009 +0000
+
+    Do not create a sub-buffer in nop, but pass the original straight
+    through.
+
+ operations/core/nop.c |   12 ++++++------
+ 1 files changed, 6 insertions(+), 6 deletions(-)
+
+commit 94b9cb9d13924ab8f695e60fa941a082ee9077a3
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Thu Nov 12 02:49:10 2009 +0000
+
+    Removed dead code
+
+ gegl/operation/gegl-operation-point-composer.c |    8 --------
+ 1 files changed, 0 insertions(+), 8 deletions(-)
+
+commit ef18550b9e820f609fe19ffde359b057fc4236a4
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Thu Nov 12 02:24:25 2009 +0000
+
+    Add fast path to pass buffer through opacity op
+
+ operations/common/opacity.c |   35 ++++++++++++++++++++++++++++-------
+ 1 files changed, 28 insertions(+), 7 deletions(-)
+
+commit f26289c1036a11fa9287fb1422b0faa9c0c4e208
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Thu Nov 12 02:27:44 2009 +0000
+
+    Added fast path to a stand-alone over op itself
+
+ operations/common/over.c            |  184
+ +++++++++++++++++++++++++++++++++++
+ operations/generated/other-blend.rb |    6 +-
+ 2 files changed, 187 insertions(+), 3 deletions(-)
+
+commit bbee2692d89353b51659a8f0082055508505c172
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Thu Nov 12 01:11:01 2009 +0000
+
+    Made gegl_operation_context_get_object public
+
+ gegl/gegl-plugin.h |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+commit 1b8b73396e7a85f8d0e767f5fdf45acfe1575ee1
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Thu Nov 12 02:26:00 2009 +0000
+
+    Made gegl_buffer_get_abyss public.
+
+    Made public because it is used for fast paths in some compositing ops.
+
+ gegl/buffer/gegl-buffer-private.h |    1 -
+ gegl/buffer/gegl-buffer.h         |    9 +++++++++
+ 2 files changed, 9 insertions(+), 1 deletions(-)
+
+commit 57b4302e5d078c4702ecd19c1bb8a70b2d4cd07a
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Thu Nov 12 01:12:21 2009 +0000
+
+    Removed fast paths from gegl-operation-point-composer.c
+
+ gegl/operation/gegl-operation-point-composer.c |  100
+ ++----------------------
+ 1 files changed, 7 insertions(+), 93 deletions(-)
+
+commit 723dace2877b20d83edfcd9f85acdb31b48002f2
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Wed Nov 11 00:43:01 2009 +0000
+
+    operation-point-composer special case fast path for opacity
+
+    Made opacity op be a no-op if no mask is passed in and alpha is 1.0
+
+ gegl/operation/gegl-operation-point-composer.c |   34
+ ++++++++++++++++++++---
+ 1 files changed, 29 insertions(+), 5 deletions(-)
+
+commit 93534cb3227f66d041290076310492ea8dbc8790
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Tue Nov 10 02:27:11 2009 +0000
+
+    Added an op that can be used to fix a wrongly premultiplied buffer.
+
+    This is a hack, that probably shall remain in the workshop.
+
+ operations/workshop/unpremul.c |   76
+ ++++++++++++++++++++++++++++++++++++++++
+ 1 files changed, 76 insertions(+), 0 deletions(-)
+
+commit 5a41b0c32a12e586a6b183d263d9afd4015184ea
+Author: Yaakov Selkowitz <yselkowitz@users.sourceforge.net>
+Date:   Fri Oct 9 01:00:35 2009 +0200
+
+    Bug 596229 -  gegl Cygwin patches : VPATH patch
+
+ docs/Makefile.am                          |    2 +-
+ docs/index-static.txt.in                  |    4 ++--
+ operations/workshop/Makefile.am           |    2 ++
+ operations/workshop/generated/Makefile.am |    2 ++
+ 4 files changed, 7 insertions(+), 3 deletions(-)
+
+commit 89121ee3b54ae3417ef5fe48cc53ce0780e74371
+Author: Yaakov Selkowitz <yselkowitz@users.sourceforge.net>
+Date:   Fri Oct 9 00:31:23 2009 +0200
+
+     Bug 596229 -  gegl Cygwin patches : no-undefined patch
+
+ gegl/Makefile.am              |    2 +-
+ operations/Makefile-common.am |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit ccb3a25eb984191ba0236f3a15902c8bcd1a82f0
+Author: Javier Jardón <javierjc1982@gmail.com>
+Date:   Wed Aug 19 04:43:34 2009 +0200
+
+    Bug 589769 - Remove deprecated Glib and GTK+ symbols
+
+ examples/gegl-paint.c |   12 ++++++------
+ 1 files changed, 6 insertions(+), 6 deletions(-)
+
+commit 415baa9b903becabb0fbe4becc13406a3b767ff6
+Author: Øyvind Kolås <pippin@gimp.org>
+Date:   Thu Aug 20 01:56:36 2009 +0100
+
+    gegl-xml: specify a gegl:nop op for top level element
+
+    To allow using the returned GeglNode directly as a image source.
+
+ gegl/gegl-xml.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit f0301668fd6ad71a66c7fd02224e54e72bfbd3b7
+Author: Michael Schumacher <schumaml@gmx.de>
+Date:   Sun Aug 9 23:53:57 2009 +0200
+
+    ﻿Bug 588172 - libgegl uses deprecated
+    g_win32_get_package_installation_subdirectory ()
+
+    Added a DllMain function to get the module handle that has to be
+    passed to
+    g_win32_get_package_installation_directory_of_module.
+
+ gegl/gegl-init.c |   26 ++++++++++++++++++++++----
+ 1 files changed, 22 insertions(+), 4 deletions(-)
+
+commit 07d4e784b9073dc4d8851ac67737768640f7edfc
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Fri Aug 7 21:44:57 2009 +0200
+
+    Update .gitignore for win32
+
+    Update .gitignore for win32 and do some sorting.
+
+ .gitignore          |   17 +++++++++--------
+ bin/.gitignore      |    6 +++---
+ examples/.gitignore |   18 +++++++++---------
+ tools/.gitignore    |    8 ++++----
+ 4 files changed, 25 insertions(+), 24 deletions(-)
+
+commit d6f735aef537c3b10a3e530796288789bfe708c1
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Fri Aug 7 21:29:36 2009 +0200
+
+    Revert "operations: Only build the display op on UNIX platforms"
+
+    This reverts commit 4867b7b6f1dd7e6f56c76905191bcb3c37a6568b. The op
+    builds on Windows now.
+
+ operations/external/Makefile.am |    2 --
+ 1 files changed, 0 insertions(+), 2 deletions(-)
+
+commit 3ef4f919dcf7c3d3701beddb2b7883b2d859f648
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Fri Aug 7 20:10:17 2009 +0200
+
+    Add $(EXEEXT) to tools in Makefile.ams to fix win32 compilation
+
+ docs/Makefile.am         |   10 +++++-----
+ docs/gallery/Makefile.am |    4 ++--
+ 2 files changed, 7 insertions(+), 7 deletions(-)
+
+commit 7005c301a1a818bb7ef957b89e6c4cfbef9275fa
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Fri Aug 7 20:12:00 2009 +0200
+
+    operations: #define SIGQUIT 3 in display.c on win32 to fix compilation
+
+ operations/external/display.c |    6 ++++++
+ 1 files changed, 6 insertions(+), 0 deletions(-)
+
+commit 883bb919333cf34c7757ac5339dff4412bef04e4
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Wed Aug 5 22:29:00 2009 +0200
+
+    Revert "gegl: Properly build module_path for win32"
+
+    This reverts commit d9023a0a88215475e1a1b63f9ffb1f0463f34378 which
+    didn't fix what it indended to fix, and breaks separate GEGL and GIMP
+    prefixes on Windows. See bug 589667.
+
+ gegl/gegl-init.c |    9 ++++-----
+ 1 files changed, 4 insertions(+), 5 deletions(-)
+
+commit d9023a0a88215475e1a1b63f9ffb1f0463f34378
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Tue Aug 4 21:51:26 2009 +0200
+
+    gegl: Properly build module_path for win32
+
+    Don't use deprecated API when building module_path on win32, and
+    construct a dir path, not a path to the GEGL dll. This might fix
+    bug 589667.
+
+ gegl/gegl-init.c |    9 +++++----
+ 1 files changed, 5 insertions(+), 4 deletions(-)
+
+commit b8163cc74749e1c476cbff550aa82412d9fe7504
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Tue Aug 4 20:09:27 2009 +0200
+
+    gegl: Remove compiler warning about copying uninitialized memory
+
+ gegl/property-types/gegl-curve.c |    5 +++--
+ 1 files changed, 3 insertions(+), 2 deletions(-)
+
+commit 4867b7b6f1dd7e6f56c76905191bcb3c37a6568b
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Tue Aug 4 20:09:06 2009 +0200
+
+    operations: Only build the display op on UNIX platforms
+
+    The display op uses non-windowsish API, only build it on UNIX-like
+    platforms.
+
+ operations/external/Makefile.am |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+commit 9d87ed0cb6720d78e185aac0f1d3e0acf3b41f63
+Author: Ruben Vermeersch <ruben@savanne.be>
+Date:   Sun Jul 26 23:26:59 2009 +0200
+
+    Bring version number in sync with main GEGL.
+
+ bindings/gegl-sharp/configure.ac |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit e3e222bec1961ca4501ef91435efaeef369f64de
+Author: Ruben Vermeersch <ruben@savanne.be>
+Date:   Sun Jul 26 20:43:05 2009 +0200
+
+    Expose GeglBuffer in Gegl#.
+
+ bindings/gegl-sharp/gegl/metadata   |    3 ++-
+ bindings/gegl-sharp/gegl/sources.in |    1 +
+ 2 files changed, 3 insertions(+), 1 deletions(-)
+
+commit 445e2ae9c38840506f67e2418c3b4a6c80e341a4
+Author: Ruben Vermeersch <ruben@savanne.be>
+Date:   Sun Jul 26 20:42:41 2009 +0200
+
+    Add a piece of hand-crafted Babl API, to provide Babl#.
+
+ bindings/gegl-sharp/gegl/Makefile.am  |    6 +++---
+ bindings/gegl-sharp/gegl/babl-api.xml |   13 +++++++++++++
+ 2 files changed, 16 insertions(+), 3 deletions(-)
+
+commit f2c7d2721dcf4e15f5b852cf21b5878c2af4abf3
+Author: Ruben Vermeersch <ruben@savanne.be>
+Date:   Sun Jul 26 20:13:09 2009 +0200
+
+    Moved configure.in to configure.ac.
+
+ bindings/gegl-sharp/configure.ac |  151
+ ++++++++++++++++++++++++++++++++++++++
+ bindings/gegl-sharp/configure.in |  151
+ --------------------------------------
+ 2 files changed, 151 insertions(+), 151 deletions(-)
+
+commit 0ea1af051bcafe58cf5451b24838e8ff19392c93
+Author: Ruben Vermeersch <ruben@savanne.be>
+Date:   Sun Jul 26 17:12:44 2009 +0200
+
+    Auto-generate ChangeLog files for Gegl#.
+
+ bindings/gegl-sharp/.gitignore        |    2 +
+ bindings/gegl-sharp/ChangeLog         |  197
+ ---------------------------------
+ bindings/gegl-sharp/ChangeLog.pre-0-1 |  197
+ +++++++++++++++++++++++++++++++++
+ bindings/gegl-sharp/Makefile.am       |   23 ++++
+ 4 files changed, 222 insertions(+), 197 deletions(-)
+
+commit d2cc4e1d2bd4e8cb0198302a5b274c94acad6416
+Author: Ruben Vermeersch <ruben@savanne.be>
+Date:   Sun Jul 26 17:07:37 2009 +0200
+
+    Fix Gegl# build.
+
+ bindings/gegl-sharp/gegl/custom/Node.custom |    4 ++--
+ bindings/gegl-sharp/gegl/sources.in         |    1 +
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+commit 0439cb0aed641d0054491d3f3e31df37174bb6cf
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Mon Jul 20 15:08:58 2009 +0200
+
+    Bug 589124 – gobj2dot.rb missing from gegl tarball
+
+    Add gobj2dot.rb to EXTRA_DIST.
+
+ tools/Makefile.am |    5 ++++-
+ 1 files changed, 4 insertions(+), 1 deletions(-)
+
+commit b7e05575ee763628faa3705f7aed4e69ce69ebcc
+Author: Michael Schumacher <schumaml@gmx.de>
+Date:   Sun Jul 19 16:44:24 2009 +0200
+
+    Re-enabling the display op.
+
+ operations/external/Makefile.am |   10 +++++-----
+ 1 files changed, 5 insertions(+), 5 deletions(-)
+
+commit 5382b3c146fb7f69a938f1407f1ee07fff652102
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Sun Jul 19 15:45:36 2009 +0200
+
+    Remove invalid comment in configure.ac about soname
+
+ configure.ac |    1 -
+ 1 files changed, 0 insertions(+), 1 deletions(-)
+
+commit 1fba12d409cbfe8d346754421a24a33bf2b8db6a
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Fri Jul 17 20:26:15 2009 +0200
+
+    Incorporate minor version in soname
+
+    Incorporate minor version in soname. We do this to compensate for the
+    immaturity of the API and future ABI/API breakage.
+
+ configure.ac |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 0414aa91024b259a35fee6714c3b04242d2d733d
+Author: Danny Robson <danny@blubinc.net>
+Date:   Thu Jul 16 21:12:06 2009 +1000
+
+    tests: Compare change-rect test buffers with small epsilon
+
+    Comparing the expected and calculated buffers can fail if there is
+    some (small) accumulated error. Specifically, test 3 was failing on my
+    computer. Compare the buffers with some small epsilon to account for
+    this.
+
+ tests/test-change-processor-rect.c |   11 +++++++++--
+ 1 files changed, 9 insertions(+), 2 deletions(-)
+
+commit bfe6ac93df4478ee9c29e6704a9ce88d83507355
+Author: Adam Turcotte <adam.turcotte@gmail.com>
+Date:   Tue Jun 30 18:07:03 2009 -0400
+
+    Bug 552658 – redundant/incorrect code in gegl-buffer.c (check
+    for ...
+
+    Two small gegl-buffer.c bugfixes.
+
+ gegl/buffer/gegl-buffer.c |    5 ++---
+ 1 files changed, 2 insertions(+), 3 deletions(-)
+
+commit b5e6f4f1f9c5038050387898581884fe73b7dc0f
+Author: Nils Philippsen <nils@redhat.com>
+Date:   Fri Jul 3 15:04:12 2009 +0200
+
+    Bug 587684 – building gegl fails in operations/workshop/external
+
+    Add $(GLIB_CFLAGS), $(BABL_CFLAGS) where missing
+
+ operations/workshop/external/Makefile.am |    8 ++++----
+ 1 files changed, 4 insertions(+), 4 deletions(-)
+
+commit aa7979850528513541173b0162d3002c58f7e526
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Tue Jul 14 20:11:57 2009 +0200
+
+    Enable automake silent-rules by default
+
+    Enable silent build rules by default, requires at least
+    Automake-1.11. Disable by either passing --disable-silent-rules to
+    configure or passing V=1 to make.
+
+ configure.ac |    5 +++++
+ 1 files changed, 5 insertions(+), 0 deletions(-)
+
+commit abb3f38d22f65d31dde55fe8448d1e8fc1a20373
+Author: Sven Neumann <s.neumann@raumfeld.com>
+Date:   Fri Jul 3 21:02:43 2009 +0200
+
+    require automake >= 1.9.6 and libtool >= 1.5
+
+ HACKING    |   19 +++++++++----------
+ autogen.sh |   25 +++++--------------------
+ 2 files changed, 14 insertions(+), 30 deletions(-)
+
+commit 920655676cf617c102c7dec077b692fd22344d63
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Thu Jul 2 19:14:03 2009 +0200
+
+    Add ChangeLog.pre-0-1
+
+ ChangeLog.pre-0-1 |25091
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ Makefile.am       |    1 +
+ 2 files changed, 25092 insertions(+), 0 deletions(-)
+
+commit a2a1a10ec4df4f953c80b5530d9dde335fb29ffa
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Thu Jul 2 18:22:09 2009 +0200
+
+    Add Makefile.am rule to generate ChangeLog
+
+    Add Makefile.am rule to generate ChangeLog copied from pango and
+    Behdad Esfahbod.
+
+ Makefile.am |   21 +++++++++++++++++++++
+ 1 files changed, 21 insertions(+), 0 deletions(-)
+
+commit 2c5f4ec0a6ee6f1a5b7ee6195559c383ad6ae268
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Wed Jul 1 19:54:28 2009 +0200
+
+    Remove ChangeLog from version control
+
+    Remove ChangeLog from version control, it will be generated for
+    releases based on git log --stat instead of being kept version
+    controlled
+
+ ChangeLog |25091
+ -------------------------------------------------------------
+ 1 files changed, 0 insertions(+), 25091 deletions(-)
+
+commit e0bc2c967cccf2255ca97d1e041a5ad2f449e81e
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Wed Jul 1 19:54:01 2009 +0200
+
+    Bump version to 0.1.1
+
+ configure.ac |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 5e2cc2146486ce0c1ebc0cbf68770dafafcb123f
+Author: Martin Nordholts <martinn@src.gnome.org>
+Date:   Wed Jul 1 18:33:35 2009 +0200
+
+    Release 0.1.0
+
+ ChangeLog |    5 +++++
+ 1 files changed, 5 insertions(+), 0 deletions(-)

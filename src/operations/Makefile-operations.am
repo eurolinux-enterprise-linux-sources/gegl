@@ -1,0 +1,32 @@
+include $(top_srcdir)/operations/Makefile-common.am
+
+LIBS            = $(op_libs)
+
+CFILES          = $(wildcard $(srcdir)/*.c)
+plugins         = $(subst $(srcdir)/,,$(CFILES:.c=.la))
+INSTALLED_ITEMS = $(subst $(srcdir)/,$(ext_dir)/,$(CFILES:.c=$(SHREXT)))
+EXTRA_DIST      = $(wildcard *.c) $(wildcard *.h)
+
+
+all-local: $(plugins)
+
+%.la: %.c $(GEGLHEADERS)
+	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) -I. -I$(top_builddir) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o $@.lo $<
+	$(LIBTOOL) --tag=CC --mode=link $(CC) $(AM_LDFLAGS) $(LDFLAGS) $(CFLAGS) -o $@ -rpath $(ext_dir) $@.lo $(LIBS) $(MATH_LIB)
+
+
+clean-local:
+	rm -f *.la
+
+install-exec-local: all-local
+	$(INSTALL) -d $(DESTDIR)$(ext_dir)
+	for i in $(plugins); do \
+	  $(LIBTOOL) --mode=install $(INSTALL) $$i $(DESTDIR)$(ext_dir) ; \
+	done
+
+uninstall-local:
+	for i in $(plugins); do \
+	  $(LIBTOOL) --mode=uninstall $(RM) $(DESTDIR)$(ext_dir)/$$i ; \
+	done
+
+check-local: all-local
