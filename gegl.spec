@@ -16,7 +16,7 @@
 Summary:    A graph based image processing framework
 Name:       gegl
 Version:    0.2.0
-Release:    18%{?dist}
+Release:    19%{?dist}
 
 # Compute some version related macros
 # Ugly hack, you need to get your quoting backslashes/percent signs straight
@@ -63,6 +63,7 @@ BuildRequires:  ruby
 BuildRequires:  SDL-devel
 BuildRequires:  suitesparse-devel
 Requires:       babl%{?_isa} >= 0.1.10
+Requires:	dcraw
 
 %description
 GEGL (Generic Graphics Library) is a graph based image processing framework. 
@@ -227,6 +228,9 @@ rm -rf %{buildroot}
 %{_libdir}/pkgconfig/%{name}-%{apiver}.pc
 
 %changelog
+* Thu Dec  1 2016 Josef Ridky <jridky@redhat.com> - 0.2.0-19
+- add Requires: dcraw (#1279144)
+
 * Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 0.2.0-18
 - Mass rebuild 2014-01-24
 
