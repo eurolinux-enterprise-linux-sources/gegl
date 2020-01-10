@@ -16,7 +16,7 @@
 Summary:    A graph based image processing framework
 Name:       gegl
 Version:    0.2.0
-Release:    11%{?dist}
+Release:    18%{?dist}
 
 # Compute some version related macros
 # Ugly hack, you need to get your quoting backslashes/percent signs straight
@@ -62,7 +62,6 @@ BuildRequires:  pkgconfig
 BuildRequires:  ruby
 BuildRequires:  SDL-devel
 BuildRequires:  suitesparse-devel
-BuildRequires:  w3m
 Requires:       babl%{?_isa} >= 0.1.10
 
 %description
@@ -228,6 +227,27 @@ rm -rf %{buildroot}
 %{_libdir}/pkgconfig/%{name}-%{apiver}.pc
 
 %changelog
+* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 0.2.0-18
+- Mass rebuild 2014-01-24
+
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 0.2.0-17
+- Mass rebuild 2013-12-27
+
+* Wed Dec 04 2013 Nils Philippsen <nils@redhat.com> - 0.2.0-16
+- remove BR: w3m, it's only needed for "make dist"
+
+* Tue Dec 03 2013 Rex Dieter <rdieter@fedoraproject.org> - 0.2.0-15
+- rebuild (exiv2)
+
+* Wed Nov 27 2013 Rex Dieter <rdieter@fedoraproject.org> - 0.2.0-14
+- rebuild (openexr)
+
+* Thu Sep 12 2013 Kalev Lember <kalevlember@gmail.com> - 0.2.0-13
+- Rebuilt for ilmbase soname bump
+
+* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.2.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
 * Mon Jul 01 2013 Nils Philippsen <nils@redhat.com> - 0.2.0-11
 - replace lua-5.2 patch by upstream commit
 - fix buffer overflow in and add plausibility checks to ppm-load op
